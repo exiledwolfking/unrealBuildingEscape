@@ -21,6 +21,10 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 		// Called when the game starts
 		virtual void BeginPlay() override;
 
+		void OpenDoor();
+
+		void CloseDoor();
+
 	public:	
 		// Called every frame
 		virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -32,5 +36,7 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 
 		UPROPERTY(EditAnywhere)
 		ATriggerVolume* PressurePlate;
+
+		AActor* ActorThatOpens; // pawn inherits from actor
 	
 };
