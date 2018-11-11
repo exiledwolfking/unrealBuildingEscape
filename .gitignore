@@ -43,3 +43,4 @@ BuildingEscape/Content/StarterContent
 *.exe
 *.out
 *.app
+BuildingEscape/.vs/*
