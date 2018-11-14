@@ -13,7 +13,8 @@ UOpenDoor::UOpenDoor()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	Owner = GetOwner();
+
 }
 
 
@@ -27,16 +28,14 @@ void UOpenDoor::BeginPlay()
 
 void UOpenDoor::OpenDoor()
 {
-	AActor* owner = GetOwner();
-	FRotator newRotation = FRotator(0.0f, 90.0f, 0.0f);
-	owner->SetActorRotation(newRotation);
+	FRotator newRotation = FRotator(0.0f, OpenAngle, 0.0f);
+	Owner->SetActorRotation(newRotation);
 }
 
 void UOpenDoor::CloseDoor()
 {
-	AActor* owner = GetOwner();
 	FRotator newRotation = FRotator(0.0f, 0.0f, 0.0f);
-	owner->SetActorRotation(newRotation);
+	Owner->SetActorRotation(newRotation);
 }
 
 
@@ -48,9 +47,9 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// Poll the triger Volume
 	if (PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpens)) {
 		OpenDoor();
-	} else {
+		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
+	} else if (GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay) {
 		CloseDoor();
 	}
-	// If the ActorThatOpens is in the volume, then open the door
 }
 

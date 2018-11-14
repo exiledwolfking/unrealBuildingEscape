@@ -31,12 +31,19 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 
 	private:
 
+		AActor* Owner;
+
 		UPROPERTY(VisibleAnywhere)
-		float OpenAngle = 90.0f;
+			float OpenAngle = 90.0f;
 
 		UPROPERTY(EditAnywhere)
-		ATriggerVolume* PressurePlate;
+			ATriggerVolume* PressurePlate;
 
-		AActor* ActorThatOpens; // pawn inherits from actor
+		UPROPERTY(EditAnywhere)
+			float DoorCloseDelay = 1.0f;
+
+		float LastDoorOpenTime;
+
+		AActor* ActorThatOpens;
 	
 };
