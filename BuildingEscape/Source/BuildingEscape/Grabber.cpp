@@ -1,9 +1,9 @@
 // Copyright Kyle Wahl 2018
 
 #include "Grabber.h"
-//#include "Engine/World.h"
-//#include "Math/Vector.h"
-//#include "GameFramework/Actor.h"
+#include "Engine/World.h"
+#include "Math/Vector.h"
+#include "GameFramework/Actor.h"
 
 
 // Sets default values for this component's properties
@@ -13,11 +13,6 @@ UGrabber::UGrabber()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	//Owner = GetOwner();
-	//UWorld* world = GetWorld();
-
-	//PlayerController = world->GetFirstPlayerController();
-
 }
 
 
@@ -26,7 +21,12 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty."));
+	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty2."));
+
+	//Owner = GetOwner();
+	UWorld* world = GetWorld();
+
+	PlayerController = world->GetFirstPlayerController();
 	
 }
 
@@ -37,10 +37,10 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// Get player view point this tick
-	//FVector location;
-	//FRotator rotation;
-	//playerController->GetPlayerViewPoint(location, rotation);
-	//UE_LOG(LogTemp, Warning, TEXT("%s-> %s --- %s"), *(Owner->GetName()), *(location.ToString(), *(rotation.ToString())));
+	FVector location;
+	FRotator rotation;
+	PlayerController->GetPlayerViewPoint(location, rotation);
+	UE_LOG(LogTemp, Warning, TEXT("%s --- %s"), *(location.ToString()), *(rotation.ToString()));
 
 	// Ray-cast out to reach distance
 
