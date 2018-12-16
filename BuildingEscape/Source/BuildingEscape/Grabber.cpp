@@ -28,7 +28,24 @@ void UGrabber::BeginPlay()
 	UWorld* world = GetWorld();
 
 	PlayerController = world->GetFirstPlayerController();
-	
+
+	/// look for attached Physics Handle
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicsHandle) {
+		// physics handle is found
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Physics Handle not found on %s"), *GetOwner()->GetName());
+	}
+
+	/// look for attached Input Component
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent) {
+		UE_LOG(LogTemp, Log, TEXT("Input Component found on %s"), *GetOwner()->GetName());
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Input Component not found on %s"), *GetOwner()->GetName());
+	}
 }
 
 
