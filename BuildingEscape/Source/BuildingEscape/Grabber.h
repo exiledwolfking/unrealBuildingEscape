@@ -40,6 +40,10 @@ private:
 	void Grab();
 	void Release();
 
+	FVector GetLineTraceStart();
+
+	FVector GetLineTraceEnd();
+
 	void FindPhysicsHandleComponent();
 
 	void SetupInputComponent();

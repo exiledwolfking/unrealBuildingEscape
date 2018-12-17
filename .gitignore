@@ -12,6 +12,7 @@ BuildingEscape/Content/StarterContent/HDRI
 */.vs
 *.VC.db
 *.suo
+*.sln
 
 
 # Prerequisites

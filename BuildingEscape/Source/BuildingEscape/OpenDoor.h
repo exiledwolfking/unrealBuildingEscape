@@ -42,8 +42,7 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 		UPROPERTY(EditAnywhere)
 			float DoorCloseDelay = 1.0f;
 
-		float LastDoorOpenTime;
+		float LastDoorOpenTime;	
 
-		AActor* ActorThatOpens;
-	
+		float GetTotalMassOfActorsOnPlate();
 };
