@@ -25,6 +25,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+
 private:	
 
 	AActor* Owner;
@@ -38,4 +39,12 @@ private:
 	// Ray cast and grab what's in reach
 	void Grab();
 	void Release();
+
+	void FindPhysicsHandleComponent();
+
+	void SetupInputComponent();
+
+	// return hit for first physics body in reach
+	const FHitResult GetFirstPhysicsBodyInReach();
+
 };
