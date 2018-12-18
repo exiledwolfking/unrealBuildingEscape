@@ -30,8 +30,9 @@ void UOpenDoor::BeginPlay()
 
 void UOpenDoor::OpenDoor()
 {
-	FRotator newRotation = FRotator(0.0f, OpenAngle, 0.0f);
-	Owner->SetActorRotation(newRotation);
+	OnOpenRequest.Broadcast();
+	// FRotator newRotation = FRotator(0.0f, OpenAngle, 0.0f);
+	// Owner->SetActorRotation(newRotation);
 }
 
 void UOpenDoor::CloseDoor()
@@ -70,7 +71,6 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 		UPrimitiveComponent* PrimitiveComponent = actor->FindComponentByClass<UPrimitiveComponent>();
 		TotalMass += PrimitiveComponent->GetMass();
 	}
-
 	return TotalMass;
 }
 
