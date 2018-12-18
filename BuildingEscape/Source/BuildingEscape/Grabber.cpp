@@ -87,7 +87,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	FVector LineTraceEnd = GetLineTraceEnd();
 
 	// if the physics handle is attached
-	if (PhysicsHandle->GrabbedComponent) {
+	if (PhysicsHandle && PhysicsHandle->GrabbedComponent) {
 		// move the object that we're holding
 		PhysicsHandle->SetTargetLocation(LineTraceEnd);
 	}
@@ -104,7 +104,7 @@ void UGrabber::Grab() {
 	auto ActorHit = HitResult.GetActor();
 
 	// if we hit something then attach a physics handle
-	if (ActorHit) {
+	if (PhysicsHandle && ActorHit) {
 		// attach physics handle
 		PhysicsHandle->GrabComponentAtLocation(
 			ComponentToGrab,
@@ -119,7 +119,10 @@ void UGrabber::Release() {
 	UE_LOG(LogTemp, Warning, TEXT("Release pressed"));
 
 	// release physics handle
-	PhysicsHandle->ReleaseComponent();
+	if (PhysicsHandle) {
+		PhysicsHandle->ReleaseComponent();
+	}
+
 }
 
 FVector UGrabber::GetLineTraceStart() {

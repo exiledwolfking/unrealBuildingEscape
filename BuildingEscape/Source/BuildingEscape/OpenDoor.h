@@ -31,13 +31,13 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 
 	private:
 
-		AActor* Owner;
+		AActor* Owner = nullptr;
 
 		UPROPERTY(VisibleAnywhere)
 			float OpenAngle = 90.0f;
 
 		UPROPERTY(EditAnywhere)
-			ATriggerVolume* PressurePlate;
+			ATriggerVolume* PressurePlate = nullptr;
 
 		UPROPERTY(EditAnywhere)
 			float DoorCloseDelay = 1.0f;
