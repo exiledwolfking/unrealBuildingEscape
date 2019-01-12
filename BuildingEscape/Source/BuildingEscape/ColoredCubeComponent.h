@@ -8,7 +8,7 @@
 
 
 
-UCLASS()
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BUILDINGESCAPE_API UColoredCubeComponent : public UStaticMeshComponent
 {
 	GENERATED_BODY()

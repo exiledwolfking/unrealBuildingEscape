@@ -6,6 +6,7 @@
 
 void UColoredCubeComponent::Click() {
 	clicks++;
+	UE_LOG(LogTemp, Warning, TEXT("Clicks : %d"), clicks);
 }
 
 void UColoredCubeComponent::ClearClicks() {

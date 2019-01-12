@@ -23,7 +23,7 @@ namespace cubetype {
 /**
  * 
  */
-UCLASS()
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BUILDINGESCAPE_API UTrackerCube : public UStaticMeshComponent
 {
 	GENERATED_BODY()
@@ -36,14 +36,14 @@ class BUILDINGESCAPE_API UTrackerCube : public UStaticMeshComponent
 	UPROPERTY(EditAnywhere)
 		TArray<AStaticMeshActor*> Cubes;
 
-	TEnumAsByte<cubetype::CubeType> GetType();
 
 	bool OpenDoor = false;
 	
 public:
+	TEnumAsByte<cubetype::CubeType> GetType();
 
 	bool GetOpenDoor();
 
-	void ActorClick();
+	void Click();
 
 };

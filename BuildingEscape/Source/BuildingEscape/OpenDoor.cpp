@@ -26,6 +26,17 @@ void UOpenDoor::BeginPlay()
 	if (!PressurePlate && Type == doortype::DoorType::WEIGHTTRIGGER) {
 		UE_LOG(LogTemp, Error, TEXT("Pressure plate not found on : %s"), *(Owner->GetName()));
 	}
+
+	if (Type == doortype::DoorType::CUBETRIGGER && !OpenDoorCube) {
+		UE_LOG(LogTemp, Error, TEXT("Tracker Open Door Cube not found on : %s"), *(Owner->GetName()));
+	}
+	else if (Type == doortype::DoorType::CUBETRIGGER) {
+		TrackerCube = OpenDoorCube->FindComponentByClass<UTrackerCube>();
+		if (!TrackerCube || TrackerCube->GetType() != cubetype::CubeType::OPENDOOR) {
+			UE_LOG(LogTemp, Error, TEXT("Tracker Open Door Cube not found on : %s"), *(Owner->GetName()));
+		}
+	}
+
 }
 
 
@@ -73,8 +84,8 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 }
 
 bool UOpenDoor::CanCubeOpenDoor() {
-	if (OpenDoorCube) {
-		return OpenDoorCube->GetOpenDoor();
+	if (TrackerCube) {
+		return TrackerCube->GetOpenDoor();
 	}
 	return false;
 }

@@ -12,8 +12,8 @@ bool UTrackerCube::GetOpenDoor() {
 	return OpenDoor;
 }
 
-void UTrackerCube::ActorClick() {
-	if (cubetype::CubeType::OPENDOOR) {
+void UTrackerCube::Click() {
+	if (type == cubetype::CubeType::OPENDOOR) {
 		bool ShouldOpenDoor = true;
 		for (AStaticMeshActor* Cube : Cubes) {
 			UColoredCubeComponent* ColoredCube = Cube->FindComponentByClass<UColoredCubeComponent>();
@@ -24,7 +24,7 @@ void UTrackerCube::ActorClick() {
 
 		OpenDoor = ShouldOpenDoor;
 	}
-	else if (cubetype::CubeType::RESET) {
+	else if (type == cubetype::CubeType::RESET) {
 		// reset counts on attached cubes
 		for (AStaticMeshActor* Cube : Cubes) {
 			UColoredCubeComponent* ColoredCube = Cube->FindComponentByClass<UColoredCubeComponent>();

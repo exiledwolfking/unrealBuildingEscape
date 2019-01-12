@@ -62,6 +62,7 @@ const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
 	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 
 	// Line trace (ray cast) out to reach distance
+	// First search for physics body
 	FHitResult Hit;
 	GetWorld()->LineTraceSingleByObjectType(
 		OUT Hit,
@@ -74,6 +75,31 @@ const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
 	AActor* HitActor = Hit.GetActor();
 	if (HitActor) {
 		UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *(HitActor->GetName()));
+	}
+	return Hit;
+
+}
+
+const FHitResult UGrabber::GetFirstStaticBodyInReach()
+{
+
+	// Setup query parameters
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+
+	// Line trace (ray cast) out to reach distance
+	// First search for physics body
+	FHitResult Hit;
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT Hit,
+		GetLineTraceStart(),
+		GetLineTraceEnd(),
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_WorldStatic),
+		TraceParameters);
+
+	// See what we hit
+	AActor* HitActor = Hit.GetActor();
+	if (HitActor) {
+		UE_LOG(LogTemp, Warning, TEXT("Hit WorldStatic: %s"), *(HitActor->GetName()));
 	}
 	return Hit;
 }
@@ -110,6 +136,21 @@ void UGrabber::Grab() {
 			ComponentToGrab,
 			NAME_None,
 			ComponentToGrab->GetOwner()->GetActorLocation());
+	}
+	else {
+		// then check for static body in reach
+		 HitResult = GetFirstStaticBodyInReach();
+		 AActor* HitActor = HitResult.GetActor();
+		if (HitActor) {
+			UColoredCubeComponent* ColoredCube = HitActor->FindComponentByClass<UColoredCubeComponent>();
+			UTrackerCube* TrackerCube = HitActor->FindComponentByClass<UTrackerCube>();
+			if (ColoredCube) {
+				ColoredCube->Click();
+			} else if (TrackerCube) {
+				TrackerCube->Click();
+			}
+		}
+
 	}
 
 

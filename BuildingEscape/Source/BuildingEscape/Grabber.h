@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "ColoredCubeComponent.h"
+#include "TrackerCube.h"
 #include "Components/InputComponent.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
@@ -50,5 +52,8 @@ private:
 
 	// return hit for first physics body in reach
 	const FHitResult GetFirstPhysicsBodyInReach();
+
+	// return hit for first static body in reach
+	const FHitResult GetFirstStaticBodyInReach();
 
 };

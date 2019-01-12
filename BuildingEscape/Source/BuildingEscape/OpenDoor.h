@@ -53,10 +53,12 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 		float TriggerMass = 40.f;
 
 		UPROPERTY(EditAnywhere)
-			ATriggerVolume* PressurePlate = nullptr;
+		ATriggerVolume* PressurePlate = nullptr;
 
 		UPROPERTY(EditAnywhere)
-			UTrackerCube* OpenDoorCube;
+		AStaticMeshActor* OpenDoorCube = nullptr;
+
+		UTrackerCube* TrackerCube = nullptr;
 
 		bool CanCubeOpenDoor();
 
