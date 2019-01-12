@@ -4,8 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "TrackerCube.h"
+#include "Engine/StaticMeshActor.h"
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
+
+UENUM()
+namespace doortype {
+	enum DoorType {
+		WEIGHTTRIGGER     UMETA(DisplayName = "Weight Trigger"),
+		CUBETRIGGER       UMETA(DisplayName = "Cube Trigger")
+	};
+}
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
 
@@ -32,6 +42,9 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 		UPROPERTY(BluePrintAssignable)
 			FDoorEvent OnClose;
 
+		UPROPERTY(EditAnywhere)
+			TEnumAsByte<doortype::DoorType> Type;
+
 	private:
 
 		AActor* Owner = nullptr;
@@ -41,6 +54,11 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 
 		UPROPERTY(EditAnywhere)
 			ATriggerVolume* PressurePlate = nullptr;
+
+		UPROPERTY(EditAnywhere)
+			UTrackerCube* OpenDoorCube;
+
+		bool CanCubeOpenDoor();
 
 		float GetTotalMassOfActorsOnPlate();
 };

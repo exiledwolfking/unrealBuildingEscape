@@ -23,7 +23,7 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 	UWorld* world = GetWorld();
-	if (!PressurePlate) {
+	if (!PressurePlate && Type == doortype::DoorType::WEIGHTTRIGGER) {
 		UE_LOG(LogTemp, Error, TEXT("Pressure plate not found on : %s"), *(Owner->GetName()));
 	}
 }
@@ -34,12 +34,24 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// Poll the triger Volume
-	if (GetTotalMassOfActorsOnPlate() > TriggerMass) {
-		OnOpen.Broadcast();
-	} else {
-		OnClose.Broadcast();
+	if (Type == doortype::DoorType::WEIGHTTRIGGER) {
+		// Poll the triger Volume
+		if (GetTotalMassOfActorsOnPlate() > TriggerMass) {
+			OnOpen.Broadcast();
+		}
+		else {
+			OnClose.Broadcast();
+		}
 	}
+	else if (Type == doortype::DoorType::CUBETRIGGER) {
+		if (CanCubeOpenDoor()) {
+			OnOpen.Broadcast();
+		}
+		else {
+			OnClose.Broadcast();
+		}
+	}
+
 }
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate() {
@@ -58,5 +70,12 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 		TotalMass += PrimitiveComponent->GetMass();
 	}
 	return TotalMass;
+}
+
+bool UOpenDoor::CanCubeOpenDoor() {
+	if (OpenDoorCube) {
+		return OpenDoorCube->GetOpenDoor();
+	}
+	return false;
 }
 
