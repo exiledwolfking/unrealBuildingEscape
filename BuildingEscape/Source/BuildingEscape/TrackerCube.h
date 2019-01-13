@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Engine/StaticMeshActor.h"
 #include "ColoredCubeComponent.h"
+#include "Sound/SoundCue.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "Components/StaticMeshComponent.h"
 #include "TrackerCube.generated.h"
 
@@ -36,6 +38,14 @@ class BUILDINGESCAPE_API UTrackerCube : public UStaticMeshComponent
 	UPROPERTY(EditAnywhere)
 		TArray<AStaticMeshActor*> Cubes;
 
+	UPROPERTY(EditAnywhere)
+		USoundCue* CodeAccepted;
+
+	UPROPERTY(EditAnywhere)
+		USoundCue* CubesReset;
+
+	UPROPERTY(EditAnywhere)
+		USoundCue* InvalidCode;
 
 	bool OpenDoor = false;
 	

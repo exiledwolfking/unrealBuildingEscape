@@ -2,11 +2,19 @@
 
 #include "ColoredCubeComponent.h"
 #include "Engine/World.h"
+#include <string>
 #include "Engine/StaticMesh.h"
+using namespace std;
 
 void UColoredCubeComponent::Click() {
-	clicks++;
-	UE_LOG(LogTemp, Warning, TEXT("Clicks : %d"), clicks);
+	if (clicks < 10) {
+		clicks++;
+	}
+	//string NumStr = to_string(clicks);
+	if (NumberSoundCues.Num() >= clicks) {
+		UGameplayStatics::PlaySound2D(GetOwner(), NumberSoundCues[clicks - 1], 1.0F, 1.0F, 0.0F, nullptr, GetOwner());
+	}
+
 }
 
 void UColoredCubeComponent::ClearClicks() {

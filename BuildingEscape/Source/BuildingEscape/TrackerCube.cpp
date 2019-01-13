@@ -23,6 +23,12 @@ void UTrackerCube::Click() {
 		}
 
 		OpenDoor = ShouldOpenDoor;
+		if (OpenDoor && CodeAccepted) {
+			UGameplayStatics::PlaySound2D(GetOwner(), CodeAccepted, 1.0F, 1.0F, 0.0F, nullptr, GetOwner());
+		}
+		else if (!OpenDoor && InvalidCode) {
+			UGameplayStatics::PlaySound2D(GetOwner(), InvalidCode, 1.0F, 1.0F, 0.0F, nullptr, GetOwner());
+		}
 	}
 	else if (type == cubetype::CubeType::RESET) {
 		// reset counts on attached cubes
@@ -31,6 +37,9 @@ void UTrackerCube::Click() {
 			if (ColoredCube) {
 				ColoredCube->ClearClicks();
 			}
+		}
+		if (CubesReset) {
+			UGameplayStatics::PlaySound2D(GetOwner(), CubesReset, 1.0F, 1.0F, 0.0F, nullptr, GetOwner());
 		}
 	}
 }

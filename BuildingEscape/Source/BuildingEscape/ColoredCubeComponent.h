@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
+#include "Sound/SoundCue.h"
+#include "Public/UObject/ConstructorHelpers.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "ColoredCubeComponent.generated.h"
 
 
@@ -14,11 +17,11 @@ class BUILDINGESCAPE_API UColoredCubeComponent : public UStaticMeshComponent
 	GENERATED_BODY()
 	
 
-
 	UPROPERTY(EditAnywhere, meta=(ClampMin="0", ClampMax="10", UIMin="0", UIMax="10"))
 		int clicksNeeded = 5;
 
-	UWorld* world = nullptr;
+	UPROPERTY(EditAnywhere)
+		TArray<USoundCue*> NumberSoundCues;
 
 	int clicks = 0;
 
