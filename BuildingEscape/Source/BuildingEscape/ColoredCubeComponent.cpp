@@ -10,11 +10,9 @@ void UColoredCubeComponent::Click() {
 	if (clicks < 10) {
 		clicks++;
 	}
-	//string NumStr = to_string(clicks);
 	if (NumberSoundCues.Num() >= clicks) {
 		UGameplayStatics::PlaySound2D(GetOwner(), NumberSoundCues[clicks - 1], 1.0F, 1.0F, 0.0F, nullptr, GetOwner());
 	}
-
 }
 
 void UColoredCubeComponent::ClearClicks() {

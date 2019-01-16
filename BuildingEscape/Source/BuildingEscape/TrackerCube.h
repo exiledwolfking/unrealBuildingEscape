@@ -36,16 +36,16 @@ class BUILDINGESCAPE_API UTrackerCube : public UStaticMeshComponent
 
 	// used to reference colored cubes to reset and check counts
 	UPROPERTY(EditAnywhere)
-		TArray<AStaticMeshActor*> Cubes;
+	TArray<AStaticMeshActor*> Cubes;
 
 	UPROPERTY(EditAnywhere)
-		USoundCue* CodeAccepted;
+	USoundCue* CodeAccepted;
 
 	UPROPERTY(EditAnywhere)
-		USoundCue* CubesReset;
+	USoundCue* CubesReset;
 
 	UPROPERTY(EditAnywhere)
-		USoundCue* InvalidCode;
+	USoundCue* InvalidCode;
 
 	bool OpenDoor = false;
 	

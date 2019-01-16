@@ -12,8 +12,8 @@
 UENUM()
 namespace doortype {
 	enum DoorType {
-		WEIGHTTRIGGER     UMETA(DisplayName = "Weight Trigger"),
-		CUBETRIGGER       UMETA(DisplayName = "Cube Trigger")
+		WEIGHTTRIGGER     UMETA(DisplayName = "Weight Trigger"), // first door triggered by weight trigger volume
+		CUBETRIGGER       UMETA(DisplayName = "Cube Trigger") // second door triggered by a cubetype::CubeType::OPENDOOR cube
 	};
 }
 
@@ -37,25 +37,25 @@ class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 		virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 		UPROPERTY(BluePrintAssignable)
-			FDoorEvent OnOpen;
+		FDoorEvent OnOpen;
 
 		UPROPERTY(BluePrintAssignable)
-			FDoorEvent OnClose;
+		FDoorEvent OnClose;
 
 		UPROPERTY(EditAnywhere)
-			TEnumAsByte<doortype::DoorType> Type;
+		TEnumAsByte<doortype::DoorType> Type;
 
 	private:
 
 		AActor* Owner = nullptr;
 
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditAnywhere, Category="Set TriggerMass and PressurePlate for WEIGHTTRIGGER door type")
 		float TriggerMass = 40.f;
 
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditAnywhere, Category = "Set TriggerMass and PressurePlate for WEIGHTTRIGGER door type")
 		ATriggerVolume* PressurePlate = nullptr;
 
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditAnywhere, Category = "Set OpenDoorCube for CUBETRIGGER door type")
 		AStaticMeshActor* OpenDoorCube = nullptr;
 
 		UTrackerCube* TrackerCube = nullptr;

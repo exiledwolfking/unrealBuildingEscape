@@ -14,6 +14,7 @@ bool UTrackerCube::GetOpenDoor() {
 
 void UTrackerCube::Click() {
 	if (type == cubetype::CubeType::OPENDOOR) {
+		// check that attached cubes have proper click amounts to open door
 		bool ShouldOpenDoor = true;
 		for (AStaticMeshActor* Cube : Cubes) {
 			UColoredCubeComponent* ColoredCube = Cube->FindComponentByClass<UColoredCubeComponent>();
